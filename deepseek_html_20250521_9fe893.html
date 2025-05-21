@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fany Days Сообщество | Официальный Discord</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --primary-light: rgba(255, 107, 107, 0.7);
+            --secondary: #4ECDC4;
+            --secondary-light: rgba(78, 205, 196, 0.7);
+            --dark: #121212;
+            --darker: #0A0A0A;
+            --light: #F5F5F5;
+            --discord: #5865F2;
+            --gold: #FFD700;
+            --gold-light: rgba(255, 215, 0, 0.5);
+            --neon-glow: 0 0 10px var(--primary-light), 0 0 20px var(--primary-light), 0 0 30px var(--primary-light);
+            --neon-glow-secondary: 0 0 10px var(--secondary-light), 0 0 20px var(--secondary-light);
+            --neon-glow-gold: 0 0 10px var(--gold-light), 0 0 20px var(--gold-light);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(78, 205, 196, 0.15) 0%, transparent 25%),
+                url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+            z-index: -1;
+        }
+        
+        /* Парящие частицы */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--primary-light);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        header {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%);
+            padding: 3rem 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                var(--primary-light) 20%,
+                transparent 40%,
+                var(--secondary-light) 60%,
+                transparent 80%,
+                var(--primary-light) 100%
+            );
+            background-size: 200% 200%;
+            animation: gradientShine 8s linear infinite;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes gradientShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
+        h1 {
+            font-family: 'MedievalSharp', cursive;
+            color: var(--primary);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: var(--neon-glow);
+            letter-spacing: 3px;
+            animation: textGlow 2s infinite alternate, floatTitle 6s ease-in-out infinite;
+            position: relative;
+        }
+        
+        @keyframes floatTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .header-subtitle {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--light);
+            opacity: 0.9;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2.5rem;
+        }
+        
+        .main-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 2.5rem;
+            background: rgba(18, 18, 18, 0.65);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--gold));
+            z-index: -1;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .main-content:hover {
+            transform: translateY(-10px) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .main-content:hover::before {
+            opacity: 0.3;
+            animation: borderGlow 3s linear infinite;
+        }
+        
+        @keyframes borderGlow {
+            0% { filter: blur(5px); opacity: 0.3; }
+            50% { filter: blur(8px); opacity: 0.5; }
+            100% { filter: blur(5px); opacity: 0.3; }
+        }
+        
+        .widget-container {
+            width: 380px;
+            padding: 2.5rem;
+            background: rgba(18, 18, 18, 0.65);
+            border-radius: 15px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .widget-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary), var(--gold));
+            z-index: -1;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .widget-container:hover {
+            transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .widget-container:hover::before {
+            opacity: 0.3;
+            animation: borderGlow 3s linear infinite;
+        }
+        
+        h2 {
+            font-family: 'MedievalSharp', cursive;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            position: relative;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--secondary);
+            transition: all 0.5s ease;
+            box-shadow: var(--neon-glow-secondary);
+        }
+        
+        h2:hover::after {
+            width: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--gold));
+        }
+        
+        p {
+            margin-bottom: 1.8rem;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+        
+        ul {
+            list-style-type: none;
+            margin-bottom: 2.5rem;
+        }
+        
+        ul li {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            transition: all 0.3s ease;
+        }
+        
+        ul li:hover {
+            transform: translateX(5px);
+        }
+        
+        ul li::before {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            text-shadow: var(--neon-glow-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        ul li:hover::before {
+            color: var(--secondary);
+            transform: scale(1.2);
+        }
+        
+        .game-logo {
+            max-width: 100%;
+            height: auto;
+            margin: 3rem auto;
+            display: block;
+            filter: drop-shadow(0 0 15px rgba(255, 107, 107, 0.7));
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        
+        .game-logo:hover {
+            transform: scale(1.1) rotateY(10deg);
+            filter: drop-shadow(0 0 25px rgba(255, 107, 107, 0.9));
+        }
+        
+        iframe {
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(88, 101, 242, 0.3);
+        }
+        
+        iframe:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 35px rgba(88, 101, 242, 0.3);
+        }
+        
+        .join-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--discord);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 20px rgba(88, 101, 242, 0.4);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .join-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .join-button:hover {
+            background: transparent;
+            color: var(--discord);
+            border-color: var(--discord);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.6);
+        }
+        
+        .join-button:hover::before {
+            left: 100%;
+        }
+        
+        .join-button i {
+            margin-right: 0.8rem;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .join-button:hover i {
+            transform: rotate(10deg) scale(1.2);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(30, 30, 30, 0.5);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--primary-light), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            background: rgba(40, 40, 40, 0.6);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .feature-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: all 0.5s ease;
+            text-shadow: var(--neon-glow-secondary);
+        }
+        
+        .feature-card:hover .feature-icon {
+            color: var(--secondary);
+            transform: rotateY(180deg) scale(1.2);
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-title {
+            color: var(--secondary);
+            text-shadow: 0 0 5px rgba(78, 205, 196, 0.3);
+        }
+        
+        /* Стили для расписания */
+        .schedule {
+            margin: 3rem 0;
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 12px;
+            padding: 2rem;
+            border-left: 4px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .schedule::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--gold-light), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        
+        .schedule:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.1);
+        }
+        
+        .schedule:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .schedule-title {
+            color: var(--gold);
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            text-shadow: var(--neon-glow-gold);
+        }
+        
+        .schedule-title i {
+            margin-right: 1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .schedule:hover .schedule-title i {
+            transform: rotate(360deg);
+        }
+        
+        .schedule-day {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-day:hover {
+            background: rgba(255, 215, 0, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .schedule-day:last-child {
+            border-bottom: none;
+        }
+        
+        .day-name {
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 120px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+        
+        .day-time {
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-day:hover .day-time {
+            color: var(--gold);
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+        
+        .gold-highlight {
+            color: var(--gold);
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-day:hover .gold-highlight {
+            text-shadow: var(--neon-glow-gold);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+            padding: 3rem 1rem;
+            text-align: center;
+            border-top: 2px solid var(--primary);
+            margin-top: 5rem;
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                var(--primary-light) 20%,
+                transparent 40%,
+                var(--secondary-light) 60%,
+                transparent 80%,
+                var(--primary-light) 100%
+            );
+            background-size: 200% 200%;
+            animation: gradientShine 8s linear infinite;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            color: var(--light);
+            font-size: 1.8rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .social-link:hover {
+            color: white;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-link:hover::before {
+            opacity: 1;
+            animation: socialPulse 2s infinite;
+        }
+        
+        @keyframes socialPulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        
+        .discord-link {
+            color: var(--discord);
+        }
+        
+        footer p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .widget-container {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .main-content, .widget-container {
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-day {
+                flex-direction: column;
+            }
+            
+            .day-name {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8), 0 0 30px rgba(255, 107, 107, 0.5); }
+            100% { text-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .pulse {
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5)); }
+        }
+        
+        /* Эффект параллакса для фона */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            transform: translateZ(-1px) scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-bg"></div>
+    <div class="particles" id="particles"></div>
+    
+    <header>
+        <h1 class="floating">Fany Days Сообщество</h1>
+        <p class="header-subtitle">Присоединяйтесь к нашему Discord серверу для веселья, общения и совместных активностей!</p>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>О нашем сообществе</h2>
+            <p>Мы - дружелюбное сообщество Fany Days, где каждый найдёт что-то по душе. Наша цель - создание позитивной атмосферы для общения, совместных игр и творчества.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="feature-title">Игровые вечера</h3>
+                    <p>Регулярные игровые сессии в различных играх с призами и турнирами</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="feature-title">Киновечера</h3>
+                    <p>Совместные просмотры и обсуждения фильмов с голосовым чатом</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Голосовые чаты</h3>
+                    <p>Приятные беседы и обсуждения на любые темы 24/7</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="feature-title">События</h3>
+                    <p>Конкурсы, праздники и другие интересные мероприятия каждую неделю</p>
+                </div>
+            </div>
+            
+            <h2>Наши преимущества</h2>
+            <ul>
+                <li>Дружелюбное и активное сообщество с модерацией</li>
+                <li>Разнообразные мероприятия на любой вкус</li>
+                <li>Открытость для новых идей и предложений</li>
+                <li>Уютная атмосфера для общения и творчества</li>
+                <li>Возможность найти новых друзей по интересам</li>
+                <li>Регулярные конкурсы с призами и розыгрыши</li>
+            </ul>
+            
+            <div class="schedule">
+                <h3 class="schedule-title">
+                    <i class="fas fa-clock gold-highlight"></i>
+                    Расписание активностей
+                </h3>
+
+                <div class="schedule-day">
+                    <span class="day-name">Понидельник:</span>
+                    <span class="day-time"><span class="gold-highlight">Фановые фракцыонные бои</span> с 22:00 до 00:00</span>
+                </div>
+
+		<div class="schedule-day">
+                    <span class="day-name">Вторник:</span>
+                    <span class="day-time"><span class="gold-highlight">Фановые фракцыонные бои</span> с 22:00 до 00:00</span>
+                </div>
+
+		<div class="schedule-day">
+                    <span class="day-name">Среда:</span>
+                    <span class="day-time"><span class="gold-highlight">Фановые фракцыонные бои</span> с 22:00 до 00:00</span>
+                </div>
+
+		<div class="schedule-day">
+                    <span class="day-name">Четверг:</span>
+                    <span class="day-time"><span class="gold-highlight">Фановые фракцыонные бои</span> с 22:00 до 00:00</span>
+                </div>
+
+		<div class="schedule-day">
+                    <span class="day-name">Пятница:</span>
+                    <span class="day-time"><span class="gold-highlight">Фановые фракцыонные бои</span> с 22:00 до 00:00</span>
+                </div>
+
+
+                <div class="schedule-day">
+                    <span class="day-name">Суббота:</span>
+                    <span class="day-time"><span class="gold-highlight">Утренние голд-плитки/Фановые фракцыонные бои</span> с 6:00 до 13:00/с 22:00 до 00:00</span>
+                </div>
+                
+                <div class="schedule-day">
+                    <span class="day-name">Воскресенье:</span>
+                    <span class="day-time"><span class="gold-highlight">Утренние голд-плитки/Фановые фракцыонные бои</span> с 6:00 до 13:00/с 22:00 до 00:00</span>
+                </div>
+                
+                <p style="margin-top: 1.5rem; font-style: italic; opacity: 0.9;">
+                    Присоединяйтесь к нашим активностям в вечернее время,а также в выходные утром! Отличный способ начать день с приятного общения и веселья.
+                </p>
+            </div>
+            
+            <img src="https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Fany Days Logo" class="game-logo pulse">
+            
+            <h2>Как присоединиться</h2>
+            <p>Стать частью нашего сообщества очень просто! Нажмите на кнопку ниже или используйте виджет Discord справа для мгновенного подключения к нашему серверу. Мы рады каждому новому участнику!</p>
+            
+            <a href="https://discord.gg/smnpPKeTND" class="join-button" target="_blank">
+                <i class="fab fa-discord"></i> Присоединиться сейчас
+            </a>
+        </div>
+        
+        <div class="widget-container">
+            <h2>Наш Discord <i class="fab fa-discord discord-link"></i></h2>
+            <iframe src="https://discordapp.com/widget?id=1271081077296861227&theme=dark" width="100%" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            
+            
+            <div style="margin-top: 2.5rem; background: rgba(78, 205, 196, 0.1); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--secondary);">
+                <h3 style="color: var(--secondary); margin-bottom: 1rem; display: flex; align-items: center;">
+                    <i class="fas fa-star" style="margin-right: 0.8rem;"></i>
+                    Новости сообщества
+                </h3>
+                <p>Следите за обновлениями и анонсами событий в нашем Discord-канале #новости. Будьте первыми, кто узнает о новых активностях!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitch"></i></a>
+        </div>
+        <p>© 2026 Fany Days Сообщество. Все права защищены.</p>
+        <p>Присоединяйтесь к нам и проводите время весело и с пользой!</p>
+    </footer>
+
+    <script>
+        // Создание частиц
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Случайные параметры частицы
+                const size = Math.random() * 10
